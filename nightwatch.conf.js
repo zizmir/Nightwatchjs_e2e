@@ -11,31 +11,33 @@ module.exports = {
   page_objects_path: ['page-objects'],
 
   // See https://nightwatchjs.org/guide/extending-nightwatch/#writing-custom-commands
-  custom_commands_path:  '',
+  custom_commands_path: '',
 
   // See https://nightwatchjs.org/guide/extending-nightwatch/#writing-custom-assertions
   custom_assertions_path: '',
 
   // See https://nightwatchjs.org/guide/#external-globals
-  globals_path : '',
+  globals_path: '',
 
   webdriver: {},
 
   test_settings: {
     default: {
-      disable_error_log: false,
-      launch_url: 'https://nightwatchjs.org',
-
       screenshots: {
         enabled: true,
         on_failure: true,
-        on_error:true,
+        on_error: true,
         path: 'tests_output/screenshots',
       },
-
       desiredCapabilities: {
-        browserName : 'firefox'
+        browserName: 'chrome',
+        'chromeOptions': {
+          'args': ['--headless']
+        }
       },
+      disable_error_log: false,
+      launch_url: 'https://nightwatchjs.org',
+
 
       webdriver: {
         start_process: true,
@@ -43,17 +45,17 @@ module.exports = {
       }
     },
 
-    
+
 
     firefox: {
-      desiredCapabilities : {
-        browserName : 'firefox',
+      desiredCapabilities: {
+        browserName: 'firefox',
         alwaysMatch: {
           // Enable this if you encounter unexpected SSL certificate errors in Firefox
           // acceptInsecureCerts: true,
           'moz:firefoxOptions': {
             args: [
-               '-headless',
+              '-headless',
               // '-verbose'
             ],
           }
@@ -71,9 +73,9 @@ module.exports = {
     },
 
     chrome: {
-      desiredCapabilities : {
-        browserName : 'chrome',
-        chromeOptions : {
+      desiredCapabilities: {
+        browserName: 'chrome',
+        chromeOptions: {
           // This tells Chromedriver to run using the legacy JSONWire protocol (not required in Chrome 78)
           // w3c: false,
           // More info on Chromedriver: https://sites.google.com/a/chromium.org/chromedriver/
@@ -112,7 +114,7 @@ module.exports = {
       // More info on configuring capabilities can be found on:
       // https://www.browserstack.com/automate/capabilities?tag=selenium-4
       desiredCapabilities: {
-        'bstack:options' : {
+        'bstack:options': {
           local: 'false',
           userName: '${BROWSERSTACK_USER}',
           accessKey: '${BROWSERSTACK_KEY}',
@@ -130,7 +132,7 @@ module.exports = {
       extends: 'browserstack',
       desiredCapabilities: {
         browserName: 'chrome',
-        chromeOptions : {
+        chromeOptions: {
           // This tells Chromedriver to run using the legacy JSONWire protocol
           // More info on Chromedriver: https://sites.google.com/a/chromium.org/chromedriver/
           w3c: false
@@ -150,7 +152,7 @@ module.exports = {
       desiredCapabilities: {
         browserName: 'IE',
         browserVersion: '11.0',
-        'bstack:options' : {
+        'bstack:options': {
           os: 'Windows',
           osVersion: '10',
           local: 'false',
@@ -181,7 +183,7 @@ module.exports = {
       extends: 'selenium',
       desiredCapabilities: {
         browserName: 'chrome',
-        chromeOptions : {
+        chromeOptions: {
           w3c: false
         }
       }
@@ -205,13 +207,13 @@ module.exports = {
 function loadServices() {
   try {
     Services.seleniumServer = require('selenium-server');
-  } catch (err) {}
+  } catch (err) { }
 
   try {
     Services.chromedriver = require('chromedriver');
-  } catch (err) {}
+  } catch (err) { }
 
   try {
     Services.geckodriver = require('geckodriver');
-  } catch (err) {}
+  } catch (err) { }
 }
